@@ -1,5 +1,5 @@
 {
-  "swagger": "2.0", here's a breaking change
+  "swagger": "2.0", 
   "info": {
     "version": "0.0.1",
     "title": "MyDriving Trips API"
