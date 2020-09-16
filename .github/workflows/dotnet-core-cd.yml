@@ -23,5 +23,5 @@ jobs:
         password: ${{ secrets.REGISTRY_PASSWORD }}
     - name: build and push docker image
       run: |
-        docker build . --file Dockerfile --tag openhackscu6b3d6acr.azurecr.io/devopsoh/api-poi:${{ github.sha }}
+        docker build . --file web/Dockerfile --tag openhackscu6b3d6acr.azurecr.io/devopsoh/api-poi:${{ github.sha }}
         docker push openhackscu6b3d6acr.azurecr.io/devopsoh/api-poi:${{ github.sha }}
