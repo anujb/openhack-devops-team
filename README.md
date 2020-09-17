@@ -32,4 +32,4 @@ It is useful but not required to have a basic knowledge of the following topics:
 
 The provisioning of this environment for proctors can be found in the [DevOps Openhack Proctor](https://github.com/Azure-Samples/openhack-devops-proctor) Github repository.
 
-## Updated master @ 2:32 PM Pacific Time
+## Updated master @ 10:22AM Pacific Time
