@@ -28,7 +28,7 @@ jobs:
 
     - uses: azure/webapps-deploy@v2
       with:
-        app-name: 'openhackscu6b3d6userprofile'
+        app-name: 'openhackscu6b3d6trips'
         publish-profile: ${{ secrets.AZUREWEBAPPPUBLISHPROFILE_TRIPS_STAGING }}
         images: 'openhackscu6b3d6acr.azurecr.io/devopsoh/api-trips:${{ github.sha }}'
         slot-name: staging
