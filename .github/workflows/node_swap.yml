@@ -19,7 +19,7 @@ jobs:
     - name: Check Node Staging Health Status
       uses: jtalk/url-health-check-action@v1.2
       with:
-        url: https://openhackscu6b3d6userprofile-staging.azurewebsites.net/api/docs/user
+        url: https://openhackscu6b3d6userprofile-staging.azurewebsites.net/api/healthcheck/user
         follow-redirect: no
         max-attempts: 3
         retry-delay: 30s
@@ -36,7 +36,7 @@ jobs:
     - name: Check Node PROD Health Status
       uses: jtalk/url-health-check-action@v1.2
       with:
-        url: https://openhackscu6b3d6userprofile.azurewebsites.net/api/docs/user
+        url: https://openhackscu6b3d6userprofile.azurewebsites.net/api/healthcheck/user
         follow-redirect: no
         max-attempts: 3
         retry-delay: 90s
