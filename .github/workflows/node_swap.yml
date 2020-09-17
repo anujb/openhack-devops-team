@@ -45,5 +45,5 @@ jobs:
       if: ${{ failure() }} 
       with:
         inlineScript: |
-          az webapp deployment slot swap  -g openhackscu6b3d6rg -n openhackscu6b3d6userprofile --slot production --target-slot staging
+          az webapp deployment slot swap  -g openhackscu6b3d6rg -n openhackscu6b3d6userprofile --slot staging --target-slot production
 
