@@ -27,7 +27,7 @@ jobs:
         docker push openhackscu6b3d6acr.azurecr.io/devopsoh/api-poi:${{ github.sha }}
     - uses: azure/webapps-deploy@v2
       with:
-        app-name: 'openhackscu6b3d6userprofile'
+        app-name: 'openhackscu6b3d6poi'
         publish-profile: ${{ secrets.AZUREWEBAPPPUBLISHPROFILE_POI_STAGING }}
         images: 'openhackscu6b3d6acr.azurecr.io/devopsoh/api-poi:${{ github.sha }}'
         slot-name: staging
