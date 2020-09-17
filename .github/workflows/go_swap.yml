@@ -1,0 +1,48 @@
+# I publish a release to trigger a STAGING -> PROD swap
+# I check that staging endpoint is healthy
+# If staging slot is healthy
+# I will login to Azure using the Azure CLI Action
+# I will use Azure CLI to swap STAGING -> PROD
+# Check to see if PROD is healthy
+# TODO: Check if PROD is Unhealthy. Rollback. SWAP back PROD -> STAGING
+
+name: Node Swap Deployment
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  swap-deployment:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check Node Staging Health Status
+      uses: jtalk/url-health-check-action@v1.2
+      with:
+        url: https://openhackscu6b3d6trips-staging.azurewebsites.net/api/trips
+        follow-redirect: no
+        max-attempts: 3
+        retry-delay: 30s
+    # TODO: Feel the pain of Azure Login via Github Actions
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    - name: Swap User Profile STAGING -> PROD using Azure CLI
+      uses: azure/CLI@v1
+      with:
+        inlineScript: |
+          az webapp deployment slot swap  -g openhackscu6b3d6rg -n openhackscu6b3d6trips --slot staging --target-slot production
+    - name: Check Node PROD Health Status
+      uses: jtalk/url-health-check-action@v1.2
+      with:
+        url: https://openhackscu6b3d6trips.azurewebsites.net/api/trips
+        follow-redirect: no
+        max-attempts: 3
+        retry-delay: 90s
+    - name: If failure Rollback PROD -> STAGING using Azure CLI
+      uses: azure/CLI@v1
+      if: ${{ failure() }} 
+      with:
+        inlineScript: |
+          az webapp deployment slot swap  -g openhackscu6b3d6rg -n openhackscu6b3d6trips --slot production --target-slot staging
