@@ -12,7 +12,7 @@ defaults:
     working-directory: apis/trips/
 
 jobs:
-  build-and-deploy:  
+  go-build-and-deploy:  
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -21,7 +21,14 @@ jobs:
         login-server: openhackscu6b3d6acr.azurecr.io
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
-    - name: build and push docker image
+    - name: go build and push docker image
       run: |
         docker build . --file Dockerfile --tag openhackscu6b3d6acr.azurecr.io/devopsoh/api-trips:${{ github.sha }}
         docker push openhackscu6b3d6acr.azurecr.io/devopsoh/api-trips:${{ github.sha }}
+
+    - uses: azure/webapps-deploy@v2
+      with:
+        app-name: 'openhackscu6b3d6userprofile'
+        publish-profile: ${{ secrets.AZUREWEBAPPPUBLISHPROFILESTAGING }}
+        images: 'openhackscu6b3d6acr.azurecr.io/devopsoh/api-trips:${{ github.sha }}'
+        slot-name: staging
